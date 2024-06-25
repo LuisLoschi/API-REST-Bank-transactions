@@ -5,11 +5,13 @@ import crypto from 'node:crypto'
 const app = fastify()
 
 app.get('/hello', async () => {
-  const transaction = await knex('transactions').insert({
-    id: crypto.randomUUID(),
-    title: 'Transação teste',
-    amount: 1000,
-  })
+  const transaction = await knex('transactions')
+    .insert({
+      id: crypto.randomUUID(),
+      title: 'Transação teste',
+      amount: 1000,
+    })
+    .returning('*')
 
   return transaction
 })
