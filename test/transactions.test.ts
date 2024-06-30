@@ -13,8 +13,8 @@ describe('Transaction routes', () => {
   })
 
   beforeEach(() => {
-    execSync('npm run knex migrate:rollback --all')
-    execSync('npm run knex migrate:latest')
+    execSync('knex migrate:rollback --all')
+    execSync('knex migrate:latest')
   })
 
   it('should be able to create a new transaction', async () => {
@@ -89,7 +89,7 @@ describe('Transaction routes', () => {
       .post('/transactions')
       .send({
         title: 'Credit Transaction',
-        amount: 1000,
+        amount: 2000,
         type: 'credit',
       })
 
@@ -110,7 +110,7 @@ describe('Transaction routes', () => {
       .expect(200)
 
     expect(summaryResponse.body.summary).toEqual({
-      amount: 500,
+      amount: 1500,
     })
   })
 })
